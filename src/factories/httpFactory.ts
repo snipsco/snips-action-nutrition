@@ -1,11 +1,13 @@
 import wretch from 'wretch'
 import { dedupe } from 'wretch-middlewares'
+import { configFactory } from './configFactory'
+import {
+    LANGUAGE_MAPPINGS
+} from '../constants'
 
-const BASE_URL = 'https://pokeapi.co/api/v2'
+const BASE_URL = 'https://platform.fatsecret.com/rest/server.api'
 
 const http = wretch(BASE_URL)
-    // Add a dedupe middleware, throttling cache would also be useful to prevent excessive token usage.
-    // (https://github.com/elbywan/wretch-middlewares)
     .middlewares([
         dedupe()
     ])
@@ -21,5 +23,6 @@ function get() {
 
 export const httpFactory = {
     init,
-    get
+    get,
+    BASE_URL
 }

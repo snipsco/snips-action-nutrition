@@ -1,5 +1,5 @@
 import { translation, logger } from '../utils'
-import { pokemonHandler } from './pokemon'
+import { getInfoHandler } from './getInfo'
 import { FlowContinuation, IntentMessage, FlowActionReturn } from 'hermes-javascript'
 
 export type Handler = (
@@ -29,5 +29,5 @@ const handlerWrapper = (handler: Handler): Handler => (
 
 // Add handlers here, and wrap them.
 export default {
-    pokemon: handlerWrapper(pokemonHandler)
+    getInfo: handlerWrapper(getInfoHandler)
 }

@@ -1,4 +1,6 @@
 [global]
-locale=french
+locale=english
 
 [secret]
+api_key=
+shared_secret=

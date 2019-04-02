@@ -37,6 +37,7 @@
   "dependencies": {
     "debug": "^4.1.1",
     "hermes-javascript": "^0.3.5",
+    "hmac_sha1": "^0.1.1",
     "i18next": "^15.0.4",
     "ini": "^1.3.5",
     "node-fetch": "^2.3.0",
