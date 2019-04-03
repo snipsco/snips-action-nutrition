@@ -20,21 +20,30 @@ export interface Servings {
 }
 
 export interface Serving {
-    calories:                string;
-    carbohydrate:            string;
-    cholesterol:             string;
-    fat:                     string;
-    fiber:                   string;
-    measurement_description: string;
-    metric_serving_amount:   string;
-    metric_serving_unit:     string;
-    number_of_units:         string;
-    protein:                 string;
-    serving_description:     string;
-    serving_id:              string;
-    serving_url:             string;
-    sodium:                  string;
-    sugar:                   string;
+    calories:                   string;
+    carbohydrate:               string;
+    cholesterol:                string;
+    fat:                        string;
+    fiber:                      string;
+    measurement_description:    string;
+    metric_serving_amount:      string;
+    metric_serving_unit:        string;
+    number_of_units:            string;
+    protein:                    string;
+    serving_description:        string;
+    serving_id:                 string;
+    serving_url:                string;
+    sodium:                     string;
+    sugar:                      string;
+    saturated_fat?:             string;
+    polyunsaturated_fat?:       string;
+    monounsaturated_fat?:       string;
+    trans_fat?:                 string;
+    potassium?:                 string;
+    vitamin_a?:                 string;
+    vitamin_c?:                 string;
+    calcium?:                   string;
+    iron?:                      string;
 }
 
 export interface SearchFoodPayload {

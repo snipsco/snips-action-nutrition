@@ -1,38 +1,39 @@
 import { searchFood, getFood } from '../api'
 import { i18nFactory } from '../factories'
-import { message } from '../utils'
+import { slot, logger } from '../utils'
 import { Handler } from './index'
-import { NluSlot, slotType } from 'hermes-javascript'
+import commonHandler, { KnownSlots } from './common'
 
-export const getInfoHandler: Handler = async function (msg, flow) {
-    const foodIngredientSlot: NluSlot<slotType.custom> | null = message.getSlotsByName(msg, 'food_ingredient', {
-        onlyMostConfident: true,
-        threshold: 0.5
-    })
+export const getInfoHandler: Handler = async function (msg, flow, knownSlots: KnownSlots = { depth: 2 }) {
+    logger.info('GetInfo')
 
-    const nutrientSlot: NluSlot<slotType.custom> | null = message.getSlotsByName(msg, 'nutrient', {
-        onlyMostConfident: true,
-        threshold: 0.5
-    })
-
-    if (nutrientSlot === null) {
-        throw new Error('intenNotRecognized')
-    }
-
-    // Get the food data
-    const foods = await searchFood(nutrientSlot.value.value)
-    const foodId = foods.foods.food[0].food_id
-
-    const food = await getFood(foodId)
+    const {
+        foodIngredient,
+        nutrient
+    } = await commonHandler(msg, knownSlots)
     
-    if (food.food.servings) {
-        console.log(food.food.servings.serving.calories)
+    if (!foodIngredient || slot.missing(foodIngredient) || !nutrient || slot.missing(nutrient)) {
+        throw new Error('intenNotRecognized')
+    } else {
+        // Get the food data
+        const foods = await searchFood(foodIngredient)
+        const foodId = foods.foods.food[0].food_id
+
+        const food = await getFood(foodId)
+        
+        if (food.food.servings) {
+            if (food.food.servings.serving[0].hasOwnProperty(nutrient)) {
+                console.log(food.food.servings.serving[0][nutrient])
+            }
+
+            console.log(food.food.servings.serving[0])
+        }
+
+        // End the dialog session.
+        flow.end()
+
+        // Return the TTS speech.
+        const i18n = i18nFactory.get()
+        return 'test'
     }
-
-    // End the dialog session.
-    flow.end()
-
-    // Return the TTS speech.
-    const i18n = i18nFactory.get()
-    return 'test'
 }
