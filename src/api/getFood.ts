@@ -1,20 +1,20 @@
 import { httpFactory, configFactory } from '../factories'
 const crypto = require('crypto')
 import { logger } from '../utils'
-import { SearchFoodPayload } from './types'
+import { SearchFoodPayload, GetFoodPayload } from './types'
 
-export async function searchFood(keyword: string): Promise<SearchFoodPayload> {
+export async function getFood(id: string): Promise<GetFoodPayload> {
     const config = configFactory.get()
 
     const parameters = {
         format: 'json',
-        method: 'foods.search',
+        method: 'food.get',
         oauth_consumer_key: config.apiKey,
         oauth_nonce: crypto.randomBytes(10).toString('HEX'),
         oauth_signature_method: 'HMAC-SHA1',
         oauth_timestamp: Math.floor((new Date()).getTime() / 1000),
         oauth_version: '1.0',
-        search_expression: keyword
+        food_id: id
     }
 
     const signature = httpFactory.computeSignature('GET', httpFactory.BASE_URL, parameters)
@@ -33,7 +33,7 @@ export async function searchFood(keyword: string): Promise<SearchFoodPayload> {
                 throw new Error('APIRequest')
             // Other error
             throw new Error('APIResponse')
-        }) as SearchFoodPayload
+        }) as GetFoodPayload
 
     if (results && !results.hasOwnProperty('error')) {
         //logger.debug(results)

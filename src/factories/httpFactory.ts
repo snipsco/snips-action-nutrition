@@ -16,6 +16,7 @@ function init(httpOptions = { mock: false }) {
     })
 }
 
+// https://platform.fatsecret.com/api/Default.aspx?screen=rapiauth
 function computeSignature(httpMethod: string, requestURI: string, parameters): string {
     const config = configFactory.get()
 

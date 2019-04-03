@@ -1,4 +1,4 @@
-import { searchFood } from '../api'
+import { searchFood, getFood } from '../api'
 import { i18nFactory } from '../factories'
 import { message } from '../utils'
 import { Handler } from './index'
@@ -19,8 +19,15 @@ export const getInfoHandler: Handler = async function (msg, flow) {
         throw new Error('intenNotRecognized')
     }
 
-    // Get the Pokemon data
-    const food = await searchFood(nutrientSlot.value.value)
+    // Get the food data
+    const foods = await searchFood(nutrientSlot.value.value)
+    const foodId = foods.foods.food[0].food_id
+
+    const food = await getFood(foodId)
+    
+    if (food.food.servings) {
+        console.log(food.food.servings.serving.calories)
+    }
 
     // End the dialog session.
     flow.end()
