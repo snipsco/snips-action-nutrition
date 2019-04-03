@@ -1,13 +1,9 @@
 import { httpFactory, configFactory } from '../factories'
-import { HmacSha1 } from 'hmac_sha1'
 const crypto = require('crypto')
 import { logger } from '../utils'
 
 export async function searchFood(keyword: string) {
     const config = configFactory.get()
-
-    const httpMethod = "GET"
-    const requestURI = encodeURIComponent(httpFactory.BASE_URL)
 
     const parameters = {
         format: 'json',
@@ -20,15 +16,7 @@ export async function searchFood(keyword: string) {
         search_expression: keyword
     }
 
-    const queryString = encodeURIComponent(Object.keys(parameters)
-        .sort()
-        .map(k => `${k}=${encodeURIComponent(parameters[k])}`)
-        .join('&'))
-
-    let mac = crypto.createHmac('sha1', `${config.sharedSecret}&`)
-    mac.update(`${httpMethod}&${requestURI}&${queryString}`)
-
-    const signature = encodeURIComponent(mac.digest('base64'))
+    const signature = httpFactory.computeSignature('GET', httpFactory.BASE_URL, parameters)
 
     const results = await httpFactory.get()
         .query({
@@ -46,8 +34,8 @@ export async function searchFood(keyword: string) {
             throw new Error('APIResponse')
         })
 
-    if (results/* && !results.hasOwnProperty('error')*/) {
-        logger.debug(results)
+    if (results && !results.hasOwnProperty('error')) {
+        //logger.debug(results)
     } else {
         throw new Error('APIResponse')
     }
