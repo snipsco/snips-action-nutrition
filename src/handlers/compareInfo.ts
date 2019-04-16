@@ -1,0 +1,70 @@
+import { slotType, NluSlot } from 'hermes-javascript'
+import { searchFood, getFood } from '../api'
+import { i18nFactory } from '../factories'
+import { slot, logger, translation, message } from '../utils'
+import { Handler } from './index'
+import commonHandler, { KnownSlots } from './common'
+import { tts } from '../utils'
+import { utils } from '../utils/nutrition'
+import {
+    SLOT_CONFIDENCE_THRESHOLD
+} from '../constants'
+
+export const compareInfoHandler: Handler = async function (msg, flow, knownSlots: KnownSlots = { depth: 2 }) {
+    const i18n = i18nFactory.get()
+
+    logger.info('CompareInfo')
+
+    const {
+        nutrient
+    } = await commonHandler(msg, knownSlots)
+
+    let foodIngredients: string[] | undefined
+
+    if (!('food_ingredients' in knownSlots)) {
+        const foodIngredientsSlot: NluSlot<slotType.custom>[] | null = message.getSlotsByName(msg, 'food_ingredient', {
+            threshold: SLOT_CONFIDENCE_THRESHOLD
+        })
+
+        if (foodIngredientsSlot) {
+            foodIngredients = foodIngredientsSlot.map(x => x.value.value)
+        }
+    } else {
+        foodIngredients = knownSlots.food_ingredients
+    }
+
+    logger.info('\tfood_ingredients: ', foodIngredients)
+
+    if (!foodIngredients || slot.missing(foodIngredients) || !nutrient || slot.missing(nutrient)) {
+        throw new Error('intentNotRecognized')
+    }
+    if (foodIngredients.length < 2) {
+        throw new Error('intentNotRecognized')
+    }
+
+    const nutrientEntry = utils.getNutrientEntry(nutrient)
+    if (!nutrientEntry) {
+        const speech = i18n('nutrition.dialog.unknownNutrient')
+        flow.end()
+        logger.info(speech)
+        return speech
+    }
+
+    try {
+        // Get the food data
+        const foods1 = await searchFood(foodIngredients[0])
+        const food1 = await getFood(foods1.foods.food[0].food_id)
+
+        const foods2 = await searchFood(foodIngredients[1])
+        const food2 = await getFood(foods2.foods.food[0].food_id)
+
+        console.log(food1.food.servings.serving[0])
+        console.log(food2.food.servings.serving[0])
+        
+        flow.end()
+        return ''
+    } catch (error) {
+        logger.error(error)
+        throw new Error('APIResponse')
+    }
+}

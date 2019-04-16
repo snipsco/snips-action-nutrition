@@ -1,5 +1,6 @@
 import { translation, logger } from '../utils'
 import { getInfoHandler } from './getInfo'
+import { compareInfoHandler } from './compareInfo'
 import { FlowContinuation, IntentMessage, FlowActionReturn } from 'hermes-javascript'
 
 export type Handler = (
@@ -29,5 +30,6 @@ const handlerWrapper = (handler: Handler): Handler => (
 
 // Add handlers here, and wrap them.
 export default {
-    getInfo: handlerWrapper(getInfoHandler)
+    getInfo: handlerWrapper(getInfoHandler),
+    compareInfo: handlerWrapper(compareInfoHandler)
 }

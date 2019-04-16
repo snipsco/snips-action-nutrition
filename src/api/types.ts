@@ -16,7 +16,7 @@ export interface Food {
 }
 
 export interface Servings {
-    serving: Serving;
+    serving: Serving[];
 }
 
 export interface Serving {

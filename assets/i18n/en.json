@@ -12,7 +12,15 @@
         "dialog": {
             "unknownNutrient": "I'm sorry, I don't know this nutrient."
         },
-        "nutritionalInfo": "There are {{ amount }} {{ unit }} of {{ nutrient }} in {{ serving }} {{ food }}."
+        "nutritionalInfoServing": "One {{ food }} typically has {{ amount }} {{ unit }} of {{ nutrient }}.",
+        "nutritionalInfoServing_percentage": "One {{ food }} typically covers {{ amount }} percent of the {{ nutrient }} reference daily intake.",
+        "nutritionalInfoServing_no_unit": "One {{ food }} typically has {{ amount }} {{ nutrient }}.",
+        "nutritionalInfo100": "100 grams of {{ food }} has {{ amount }} {{ unit }} of {{ nutrient }}.",
+        "nutritionalInfo100_percentage": "100 grams of {{ food }} covers {{ amount }} percent of the {{ nutrient }} reference daily intake.",
+        "nutritionalInfo100_no_unit": "100 grams of {{ food }} has {{ amount }} {{ nutrient }}.",
+        "additionalNutritionnalInfo100": "100 grams corresponds to {{ amount }} {{ unit }}.",
+        "additionalNutritionnalInfo100_percentage": "100 grams covers {{ amount }} percent.",
+        "additionalNutritionnalInfo100_no_unit": "100 grams has {{ amount }} {{ nutrient }}."
     },
     "units": {
         "mg": "milligrams",

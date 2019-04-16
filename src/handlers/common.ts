@@ -11,8 +11,9 @@ import {
 
 export type KnownSlots = {
     depth: number,
-    food_ingredient?: string,
     nutrient?: string
+    food_ingredient?: string,
+    food_ingredients?: string[]
 }
 
 export default async function (msg: IntentMessage, knownSlots: KnownSlots) {
@@ -25,20 +26,7 @@ export default async function (msg: IntentMessage, knownSlots: KnownSlots) {
         }
     }
 
-    let foodIngredient: string | undefined, nutrient: string | undefined
-
-    if (!('food_ingredient' in knownSlots)) {
-        const foodIngredientSlot: NluSlot<slotType.custom> | null = message.getSlotsByName(msg, 'food_ingredient', {
-            onlyMostConfident: true,
-            threshold: SLOT_CONFIDENCE_THRESHOLD
-        })
-
-        if (foodIngredientSlot) {
-            foodIngredient = foodIngredientSlot.value.value
-        }
-    } else {
-        foodIngredient = knownSlots.food_ingredient
-    }
+    let nutrient: string | undefined
 
     if (!('nutrient' in knownSlots)) {
         const nutrientSlot: NluSlot<slotType.custom> | null = message.getSlotsByName(msg, 'nutrient', {
@@ -53,8 +41,7 @@ export default async function (msg: IntentMessage, knownSlots: KnownSlots) {
         nutrient = knownSlots.nutrient
     }
 
-    logger.info('\tfood_ingredient: ', foodIngredient)
     logger.info('\tnutrient: ', nutrient)
 
-    return { foodIngredient, nutrient }
+    return { nutrient }
 }

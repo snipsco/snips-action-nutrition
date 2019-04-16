@@ -20,6 +20,10 @@ export default function ({
                     {
                         intent: 'snips-assistant:GetNutritionalInfo',
                         action: handlers.getInfo
+                    },
+                    {
+                        intent: 'snips-assistant:CompareNutritionalInfo',
+                        action: handlers.compareInfo
                     }
                 ])
                 resolve(done)

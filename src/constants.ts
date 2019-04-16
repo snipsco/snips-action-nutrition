@@ -20,7 +20,7 @@ export const NUTRIENTS = {
         assistant_key: 'calories',
         api_key: 'calories',
         value: 'calories',
-        unit: ''
+        unit: 'none'
     },
     carbohydrate: {
         assistant_key: 'carbohydrate',

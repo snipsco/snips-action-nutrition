@@ -1,10 +1,15 @@
+import { slotType, NluSlot } from 'hermes-javascript'
 import { searchFood, getFood } from '../api'
 import { i18nFactory } from '../factories'
-import { slot, logger, translation } from '../utils'
+import { slot, logger, translation, message } from '../utils'
 import { Handler } from './index'
 import commonHandler, { KnownSlots } from './common'
 import { tts } from '../utils'
-import { utils } from '../utils/nutrition'
+import { utils, filterServings } from '../utils/nutrition'
+import { Serving } from '../api/types'
+import {
+    SLOT_CONFIDENCE_THRESHOLD
+} from '../constants'
 
 export const getInfoHandler: Handler = async function (msg, flow, knownSlots: KnownSlots = { depth: 2 }) {
     const i18n = i18nFactory.get()
@@ -12,9 +17,25 @@ export const getInfoHandler: Handler = async function (msg, flow, knownSlots: Kn
     logger.info('GetInfo')
 
     const {
-        foodIngredient,
-        nutrient
+        nutrient,
     } = await commonHandler(msg, knownSlots)
+
+    let foodIngredient: string | undefined
+
+    if (!('food_ingredient' in knownSlots)) {
+        const foodIngredientSlot: NluSlot<slotType.custom> | null = message.getSlotsByName(msg, 'food_ingredient', {
+            onlyMostConfident: true,
+            threshold: SLOT_CONFIDENCE_THRESHOLD
+        })
+
+        if (foodIngredientSlot) {
+            foodIngredient = foodIngredientSlot.value.value
+        }
+    } else {
+        foodIngredient = knownSlots.food_ingredient
+    }
+
+    logger.info('\tfood_ingredient: ', foodIngredient)
     
     if (!foodIngredient || slot.missing(foodIngredient) || !nutrient || slot.missing(nutrient)) {
         throw new Error('intentNotRecognized')
@@ -29,17 +50,20 @@ export const getInfoHandler: Handler = async function (msg, flow, knownSlots: Kn
     }
 
     const now = Date.now()
-
-    // Get the food data
-    const foods = await searchFood(foodIngredient)
-    const foodId = foods.foods.food[0].food_id
-
-    const food = await getFood(foodId)
     
     try {
-        const serving = food.food.servings.serving[0]
+        // Get the food data
+        const foods = await searchFood(foodIngredient)
+        const food = await getFood(foods.foods.food[0].food_id)
+        
+        const [
+            servingUnit,
+            serving100
+         ] = filterServings(food.food.servings.serving, foodIngredient)
 
-        const speech = translation.infoToSpeech(foodIngredient, serving, nutrientEntry)
+         console.log(food.food.servings.serving)
+
+        const speech = translation.infoToSpeech(foodIngredient, [ servingUnit, serving100 ], nutrientEntry)
         logger.info(speech)
 
         flow.end()

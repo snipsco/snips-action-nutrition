@@ -10,6 +10,8 @@ sh setup.sh
 
 Don't forget to edit the `config.ini` file.
 
+To be able to make calls to the API, you must have a [FatSecret Platform REST API key](https://platform.fatsecret.com/api/Default.aspx?screen=rapih).
+
 ## Run
 
 - Dev mode:

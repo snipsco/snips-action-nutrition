@@ -19,7 +19,7 @@ export const translation = {
     },
 
     // Takes an array from the i18n and returns a random item.
-    randomTranslation (key: string | string[], opts: {[key: string]: any}): string {
+    randomTranslation(key: string | string[], opts: {[key: string]: any}): string {
         const i18n = i18nFactory.get()
         const possibleValues = i18n(key, { returnObjects: true, ...opts })
 
@@ -30,17 +30,40 @@ export const translation = {
         return possibleValues[randomIndex]
     },
 
-    infoToSpeech(food: string, serving: Serving, nutrientEntry): string {
+    infoToSpeech(food: string, [ servingUnit, serving100]: (Serving | null)[], nutrientEntry): string {
         const i18n = i18nFactory.get()
 
         let tts: string = ''
 
-        return i18n('nutrition.nutritionalInfo', {
-            amount: serving[nutrientEntry.api_key],
-            unit: i18n(`units.${ nutrientEntry.unit }`),
-            nutrient: nutrientEntry.value,
-            serving: serving.serving_description,
-            food
-        })
+        if (servingUnit) {
+            tts += i18n('nutrition.nutritionalInfoServing', {
+                amount: servingUnit[nutrientEntry.api_key],
+                nutrient: nutrientEntry.value,
+                food,
+                unit: i18n(`units.${ nutrientEntry.unit }`),
+                context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+            })
+            tts += ' '
+        }
+
+        if (serving100) {
+            if (servingUnit) {
+                tts += i18n('nutrition.additionalNutritionnalInfo100', {
+                    amount: serving100[nutrientEntry.api_key],
+                    unit: i18n(`units.${ nutrientEntry.unit }`),
+                    context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+                })
+            } else {
+                tts += i18n('nutrition.nutritionalInfo100', {
+                    amount: serving100[nutrientEntry.api_key],
+                    nutrient: nutrientEntry.value,
+                    food,
+                    unit: i18n(`units.${ nutrientEntry.unit }`),
+                    context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+                })
+            }
+        }
+
+        return tts
     }
 }
