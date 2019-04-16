@@ -12,7 +12,7 @@ export interface Food {
     food_name:          string;
     food_type:          string;
     food_url:           string;
-    servings?:          Servings;
+    servings:           Servings;
 }
 
 export interface Servings {
