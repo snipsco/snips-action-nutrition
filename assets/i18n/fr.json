@@ -1,14 +1,43 @@
 {
     "error": {
-        "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips",
+        "mqtt": "Désolé, une erreur s'est produite lors de la communication avec la plateforme Snips.",
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
         "locale": "Désolé, une erreur s'est produite avec vos paramètres de localisation.",
         "intentNotRecognized": "Désolé, je n'ai pas compris votre requête.",
         "APIResponse": "Désolé, une erreur s'est produite avec le service distant.",
         "APIRequest": "Désolé, le service distant est injoignable.",
-        "unspecific": "Oups, quelque chose s'est mal passé."
+        "unspecific": "Oups, quelque chose s'est mal passé.",
+        "food": "Désolé, l'ingrédient demandé n'a pas été retrouvé."
     },
-    "pokemon": {
-        "info": "Le pokémon {{ name }} pèse {{ weight }} kilos et mesure {{ height }} centimètres."
+    "nutrition": {
+        "dialog": {
+            "unknownNutrient": "Désolé, je ne connais pas ce nutriment."
+        },
+        "getInfo": {
+            "nutritionalInfoServing": "En moyenne, une {{ food }} contient {{ amount }} {{ unit }} de {{ nutrient }}.",
+            "nutritionalInfoServing_calories": "En moyenne, une {{ food }} contient {{ amount }} {{ unit }}.",
+            "nutritionalInfoServing_percentage": "En moyenne, une {{ food }} couvre {{ amount }} pour cent de l'apport journalier recommandé en {{ nutrient }}, basé sur un régime à 2000 calories.",
+            "nutritionalInfo100": "100 grammes de {{ food }} contiennent {{ amount }} {{ unit }} de {{ nutrient }}.",
+            "nutritionalInfo100_calories": "100 grammes de {{ food }} contiennent {{ amount }} {{ unit }}.",
+            "nutritionalInfo100_percentage": "100 grammes de {{ food }} couvrent {{ amount }} pour cent de l'apport journalier recommandé en {{ nutrient }}, basé sur un régime à 2000 calories.",
+            "additionalNutritionnalInfo100": "100 grammes correspondent à {{ amount }} {{ unit }}.",
+            "additionalNutritionnalInfo100_calories": "100 grammes contiennent {{ amount }} {{ unit }}.",
+            "additionalNutritionnalInfo100_percentage": "100 grammes couvrent {{ amount }} pour cent."
+        },
+        "compareInfo": {
+            "comparisonServing": "Une {{ food_1 }} est plus riche en {{ nutrient }} qu'une {{ food_2 }}.",
+            "comparison100": "{{ food_1 }} est plus riche en {{ nutrient }} que {{ food_2 }}.",
+            "nutritionalInfoServing": "En moyenne, une {{ food_1 }} contient {{ amount_1 }} {{ unit }} de {{ nutrient }} et une {{ food_2 }} en contient {{ amount_2 }}.",
+            "nutritionalInfoServing_calories": "En moyenne, une {{ food_1 }} contient {{ amount_1 }} {{ unit }} et une {{ food_2 }} en contient {{ amount_2 }}.",
+            "nutritionalInfoServing_percentage": "En moyenne, une {{ food_1 }} couvre {{ amount_1 }} pour cent de l'apport journalier recommandé en {{ nutrient }} et une {{ food_2 }} couvre {{ amount_2 }} pour cent.",
+            "nutritionalInfo100": "100 grammes de {{ food_1 }} contiennent {{ amount_1 }} {{ unit }} de {{ nutrient }} et une {{ food_2 }} en contient {{ amount_2 }}.",
+            "nutritionalInfo100_calories": "100 grammes de {{ food_1 }} contiennent {{ amount_1 }} {{ unit }} et une {{ food_2 }} en contient {{ amount_2 }}.",
+            "nutritionalInfo100_percentage": "100 grammes de {{ food_1 }} couvre {{ amount_1 }} pour cent de l'apport journalier recommandé en {{ nutrient }} et une {{ food_2 }} couvre {{ amount_2 }} pour cent."
+        }
+    },
+    "units": {
+        "mg": "milligrammes",
+        "g": "grammes",
+        "kcal": "calories"
     }
 }

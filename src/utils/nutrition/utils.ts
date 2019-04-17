@@ -1,4 +1,4 @@
-import { NUTRIENTS } from "../../constants"
+import { NUTRIENTS } from '../../constants'
 
 export const utils = {
     getNutrientEntry(assistantKey: string) {

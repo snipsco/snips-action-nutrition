@@ -1,7 +1,7 @@
 import { httpFactory, configFactory } from '../factories'
 const crypto = require('crypto')
 import { logger } from '../utils'
-import { SearchFoodPayload, GetFoodPayload } from './types'
+import { GetFoodPayload } from './types'
 
 export async function getFood(id: string): Promise<GetFoodPayload> {
     const config = configFactory.get()

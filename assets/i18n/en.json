@@ -29,17 +29,15 @@
             "comparison100": "{{ food_1 }} is richer in {{ nutrient }} than {{ food_2 }}.",
             "nutritionalInfoServing": "One {{ food_1 }} typically has {{ amount_1 }} {{ unit }} of {{ nutrient }} whereas one {{ food_2 }} has {{ amount_2 }}.",
             "nutritionalInfoServing_calories": "One {{ food_1 }} typically has {{ amount_1 }} {{ unit }} whereas one {{ food_2 }} has {{ amount_2 }}.",
-            "nutritionalInfoServing_percentage": "One {{ food_1 }} typically covers {{ amount_1 }} percent of the {{ nutrient }} reference daily intake whereas one {{ food_2 }} covers {{ amount_2 }}.",
+            "nutritionalInfoServing_percentage": "One {{ food_1 }} typically covers {{ amount_1 }} percent of the daily recommended {{ nutrient }} whereas one {{ food_2 }} covers {{ amount_2 }}.",
             "nutritionalInfo100": "100 grams of {{ food_1 }} has {{ amount_1 }} {{ unit }} of {{ nutrient }} whereas {{ food_2 }} has {{ amount_2 }}.",
             "nutritionalInfo100_calories": "100 grams of {{ food_1 }} has {{ amount_1 }} {{ unit }} whereas {{ food_2 }} has {{ amount_2 }}.",
-            "nutritionalInfo100_percentage": "100 grams of {{ food_1 }} covers {{ amount_1 }} percent of the {{ nutrient }} reference daily intake whereas {{ food_2 }} covers {{ amount_2 }}."
+            "nutritionalInfo100_percentage": "100 grams of {{ food_1 }} covers {{ amount_1 }} percent of the daily recommended {{ nutrient }} whereas {{ food_2 }} covers {{ amount_2 }}."
         }
     },
     "units": {
         "mg": "milligrams",
         "g": "grams",
-        "kg": "kilograms",
-        "oz": "ounces",
-        "kcal": "kilocalories"
+        "kcal": "calories"
     }
 }
