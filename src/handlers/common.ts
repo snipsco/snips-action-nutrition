@@ -8,12 +8,18 @@ import {
     INTENT_PROBABILITY_THRESHOLD,
     ASR_UTTERANCE_CONFIDENCE_THRESHOLD
 } from '../constants'
+import { Serving } from '../api'
 
 export type KnownSlots = {
     depth: number,
     nutrient?: string
     food_ingredient?: string,
     food_ingredients?: string[]
+}
+
+export type ServingSamples = {
+    unit: Serving | null,
+    normalized: Serving
 }
 
 export default async function (msg: IntentMessage, knownSlots: KnownSlots) {

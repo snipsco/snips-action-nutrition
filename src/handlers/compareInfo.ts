@@ -5,7 +5,7 @@ import { slot, logger, translation, message } from '../utils'
 import { Handler } from './index'
 import commonHandler, { KnownSlots } from './common'
 import { tts } from '../utils'
-import { utils } from '../utils/nutrition'
+import { utils, filterServings } from '../utils/nutrition'
 import {
     SLOT_CONFIDENCE_THRESHOLD
 } from '../constants'
@@ -50,19 +50,32 @@ export const compareInfoHandler: Handler = async function (msg, flow, knownSlots
         return speech
     }
 
+    const now = Date.now()
+
+    // Get the food data
+    const foods1 = await searchFood(foodIngredients[0])
+    const food1 = await getFood(foods1.foods.food[0].food_id)
+    const servings1 = food1.food.servings.serving
+
+    const foods2 = await searchFood(foodIngredients[1])
+    const food2 = await getFood(foods2.foods.food[0].food_id)
+    const servings2 = food2.food.servings.serving
+
     try {
-        // Get the food data
-        const foods1 = await searchFood(foodIngredients[0])
-        const food1 = await getFood(foods1.foods.food[0].food_id)
+        const [ food1ServingUnit, food1ServingNormalized ] = filterServings(servings1, foodIngredients[0])
+        const [ food2ServingUnit, food2ServingNormalized ] = filterServings(servings2, foodIngredients[0])
 
-        const foods2 = await searchFood(foodIngredients[1])
-        const food2 = await getFood(foods2.foods.food[0].food_id)
+        const speech = translation.compareInfoToSpeech(
+            foodIngredients[0], { unit: food1ServingUnit, normalized: food1ServingNormalized },
+            foodIngredients[1], { unit: food2ServingUnit, normalized: food2ServingNormalized }, nutrientEntry)
+        logger.info(speech)
 
-        console.log(food1.food.servings.serving[0])
-        console.log(food2.food.servings.serving[0])
-        
         flow.end()
-        return ''
+        if (Date.now() - now < 4000) {
+            return speech
+        } else {
+            tts.say(speech)
+        }
     } catch (error) {
         logger.error(error)
         throw new Error('APIResponse')

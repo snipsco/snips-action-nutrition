@@ -6,26 +6,40 @@
         "intentNotRecognized": "Sorry, I did not understand your request.",
         "APIResponse": "Sorry, there was an issue with the service provider.",
         "APIRequest": "Sorry, the service provider is unreachable.",
-        "unspecific": "Oops, something went wrong."
+        "unspecific": "Oops, something went wrong.",
+        "food": "Sorry, the food ingredient you asked is unknown to me."
     },
     "nutrition": {
         "dialog": {
             "unknownNutrient": "I'm sorry, I don't know this nutrient."
         },
-        "nutritionalInfoServing": "One {{ food }} typically has {{ amount }} {{ unit }} of {{ nutrient }}.",
-        "nutritionalInfoServing_percentage": "One {{ food }} typically covers {{ amount }} percent of the {{ nutrient }} reference daily intake.",
-        "nutritionalInfoServing_no_unit": "One {{ food }} typically has {{ amount }} {{ nutrient }}.",
-        "nutritionalInfo100": "100 grams of {{ food }} has {{ amount }} {{ unit }} of {{ nutrient }}.",
-        "nutritionalInfo100_percentage": "100 grams of {{ food }} covers {{ amount }} percent of the {{ nutrient }} reference daily intake.",
-        "nutritionalInfo100_no_unit": "100 grams of {{ food }} has {{ amount }} {{ nutrient }}.",
-        "additionalNutritionnalInfo100": "100 grams corresponds to {{ amount }} {{ unit }}.",
-        "additionalNutritionnalInfo100_percentage": "100 grams covers {{ amount }} percent.",
-        "additionalNutritionnalInfo100_no_unit": "100 grams has {{ amount }} {{ nutrient }}."
+        "getInfo": {
+            "nutritionalInfoServing": "One {{ food }} typically has {{ amount }} {{ unit }} of {{ nutrient }}.",
+            "nutritionalInfoServing_calories": "One {{ food }} typically has {{ amount }} {{ unit }}.",
+            "nutritionalInfoServing_percentage": "One {{ food }} typically covers {{ amount }} percent of the daily recommended {{ nutrient }}, based on a 2000 calories diet.",
+            "nutritionalInfo100": "100 grams of {{ food }} has {{ amount }} {{ unit }} of {{ nutrient }}.",
+            "nutritionalInfo100_calories": "100 grams of {{ food }} has {{ amount }} {{ unit }}.",
+            "nutritionalInfo100_percentage": "100 grams of {{ food }} covers {{ amount }} percent of the daily recommended {{ nutrient }}, based on a 2000 calories diet.",
+            "additionalNutritionnalInfo100": "100 grams corresponds to {{ amount }} {{ unit }}.",
+            "additionalNutritionnalInfo100_calories": "100 grams has {{ amount }} {{ unit }}.",
+            "additionalNutritionnalInfo100_percentage": "100 grams covers {{ amount }} percent."
+        },
+        "compareInfo": {
+            "comparisonServing": "One {{ food_1 }} is richer in {{ nutrient }} than one {{ food_2 }}.",
+            "comparison100": "{{ food_1 }} is richer in {{ nutrient }} than {{ food_2 }}.",
+            "nutritionalInfoServing": "One {{ food_1 }} typically has {{ amount_1 }} {{ unit }} of {{ nutrient }} whereas one {{ food_2 }} has {{ amount_2 }}.",
+            "nutritionalInfoServing_calories": "One {{ food_1 }} typically has {{ amount_1 }} {{ unit }} whereas one {{ food_2 }} has {{ amount_2 }}.",
+            "nutritionalInfoServing_percentage": "One {{ food_1 }} typically covers {{ amount_1 }} percent of the {{ nutrient }} reference daily intake whereas one {{ food_2 }} covers {{ amount_2 }}.",
+            "nutritionalInfo100": "100 grams of {{ food_1 }} has {{ amount_1 }} {{ unit }} of {{ nutrient }} whereas {{ food_2 }} has {{ amount_2 }}.",
+            "nutritionalInfo100_calories": "100 grams of {{ food_1 }} has {{ amount_1 }} {{ unit }} whereas {{ food_2 }} has {{ amount_2 }}.",
+            "nutritionalInfo100_percentage": "100 grams of {{ food_1 }} covers {{ amount_1 }} percent of the {{ nutrient }} reference daily intake whereas {{ food_2 }} covers {{ amount_2 }}."
+        }
     },
     "units": {
         "mg": "milligrams",
         "g": "grams",
         "kg": "kilograms",
-        "oz": "ounces"
+        "oz": "ounces",
+        "kcal": "kilocalories"
     }
 }

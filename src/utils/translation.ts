@@ -1,5 +1,5 @@
 import { i18nFactory } from '../factories/i18nFactory'
-import { Serving } from '../api/types'
+import { ServingSamples } from '../handlers/common'
 
 export const translation = {
     // Outputs an error message based on the error object, or a default message if not found.
@@ -30,39 +30,63 @@ export const translation = {
         return possibleValues[randomIndex]
     },
 
-    infoToSpeech(food: string, [ servingUnit, serving100]: (Serving | null)[], nutrientEntry): string {
+    infoToSpeech(food: string, servings: ServingSamples, nutrientEntry): string {
         const i18n = i18nFactory.get()
 
         let tts: string = ''
+        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
 
-        if (servingUnit) {
-            tts += i18n('nutrition.nutritionalInfoServing', {
-                amount: servingUnit[nutrientEntry.api_key],
+        if (servings.unit) {
+            tts += i18n('nutrition.getInfo.nutritionalInfoServing', {
+                amount: servings.unit[nutrientEntry.api_key],
                 nutrient: nutrientEntry.value,
                 food,
                 unit: i18n(`units.${ nutrientEntry.unit }`),
-                context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+                context
             })
             tts += ' '
+
+            tts += i18n('nutrition.getInfo.additionalNutritionnalInfo100', {
+                amount: servings.normalized[nutrientEntry.api_key],
+                unit: i18n(`units.${ nutrientEntry.unit }`),
+                context
+            })
+        } else {
+            tts += i18n('nutrition.getInfo.nutritionalInfo100', {
+                amount: servings.normalized[nutrientEntry.api_key],
+                nutrient: nutrientEntry.value,
+                food,
+                unit: i18n(`units.${ nutrientEntry.unit }`),
+                context
+            })
         }
 
-        if (serving100) {
-            if (servingUnit) {
-                tts += i18n('nutrition.additionalNutritionnalInfo100', {
-                    amount: serving100[nutrientEntry.api_key],
-                    unit: i18n(`units.${ nutrientEntry.unit }`),
-                    context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
-                })
-            } else {
-                tts += i18n('nutrition.nutritionalInfo100', {
-                    amount: serving100[nutrientEntry.api_key],
-                    nutrient: nutrientEntry.value,
-                    food,
-                    unit: i18n(`units.${ nutrientEntry.unit }`),
-                    context: nutrientEntry.unit == 'none' ? 'no_unit' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
-                })
-            }
-        }
+        return tts
+    },
+
+    compareInfoToSpeech(food1: string, servings1, food2: string, servings2, nutrientEntry): string {
+        const i18n = i18nFactory.get()
+
+        let tts: string = ''
+        const servingSuffix = (servings1.unit && servings2.unit) ? 'Serving' : '100'
+        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+
+        tts += i18n(`nutrition.compareInfo.comparison${ servingSuffix }`, {
+            food_1: servings1.normalized[nutrientEntry.api_key] > servings2.normalized[nutrientEntry.api_key] ? food1 : food2,
+            food_2: servings1.normalized[nutrientEntry.api_key] < servings2.normalized[nutrientEntry.api_key] ? food1 : food2,
+            nutrient: nutrientEntry.value
+        })
+        tts += ' '
+
+        tts += i18n(`nutrition.compareInfo.nutritionalInfo${ servingSuffix }`, {
+            amount_1: servings1.normalized[nutrientEntry.api_key],
+            amount_2: servings2.normalized[nutrientEntry.api_key],
+            nutrient: nutrientEntry.value,
+            unit: i18n(`units.${ nutrientEntry.unit }`),
+            food_1: food1,
+            food_2: food2,
+            context
+        })
 
         return tts
     }

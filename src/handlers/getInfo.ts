@@ -6,7 +6,6 @@ import { Handler } from './index'
 import commonHandler, { KnownSlots } from './common'
 import { tts } from '../utils'
 import { utils, filterServings } from '../utils/nutrition'
-import { Serving } from '../api/types'
 import {
     SLOT_CONFIDENCE_THRESHOLD
 } from '../constants'
@@ -51,19 +50,16 @@ export const getInfoHandler: Handler = async function (msg, flow, knownSlots: Kn
 
     const now = Date.now()
     
+    // Get the food data
+    const foods = await searchFood(foodIngredient)
+    const food = await getFood(foods.foods.food[0].food_id)
+    const servings = food.food.servings.serving
+
     try {
-        // Get the food data
-        const foods = await searchFood(foodIngredient)
-        const food = await getFood(foods.foods.food[0].food_id)
-        
-        const [
-            servingUnit,
-            serving100
-         ] = filterServings(food.food.servings.serving, foodIngredient)
+        const [ foodServingUnit, foodServingNormalized ] = filterServings(servings, foodIngredient)
 
-         console.log(food.food.servings.serving)
-
-        const speech = translation.infoToSpeech(foodIngredient, [ servingUnit, serving100 ], nutrientEntry)
+        const speech = translation.infoToSpeech(
+            foodIngredient, { unit: foodServingUnit, normalized: foodServingNormalized }, nutrientEntry)
         logger.info(speech)
 
         flow.end()

@@ -36,7 +36,9 @@ export async function searchFood(keyword: string): Promise<SearchFoodPayload> {
         }) as SearchFoodPayload
 
     if (results && !results.hasOwnProperty('error')) {
-        //logger.debug(results)
+        if (results.foods.total_results === '0') {
+            throw new Error('food')
+        }
     } else {
         throw new Error('APIResponse')
     }
