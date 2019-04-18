@@ -34,12 +34,12 @@ export const translation = {
         const i18n = i18nFactory.get()
 
         let tts: string = ''
-        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+        const context = nutrientEntry.unit == 'cal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
 
         if (servings.unit) {
             tts += i18n('nutrition.getInfo.nutritionalInfoServing', {
                 amount: servings.unit[nutrientEntry.api_key],
-                nutrient: nutrientEntry.value,
+                nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
                 food,
                 unit: i18n(`units.${ nutrientEntry.unit }`),
                 context
@@ -54,7 +54,7 @@ export const translation = {
         } else {
             tts += i18n('nutrition.getInfo.nutritionalInfo100', {
                 amount: servings.normalized[nutrientEntry.api_key],
-                nutrient: nutrientEntry.value,
+                nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
                 food,
                 unit: i18n(`units.${ nutrientEntry.unit }`),
                 context
@@ -69,19 +69,19 @@ export const translation = {
 
         let tts: string = ''
         const servingSuffix = (servings1.unit && servings2.unit) ? 'Serving' : '100'
-        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+        const context = nutrientEntry.unit == 'cal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
 
         tts += i18n(`nutrition.compareInfo.comparison${ servingSuffix }`, {
             food_1: servings1.normalized[nutrientEntry.api_key] > servings2.normalized[nutrientEntry.api_key] ? food1 : food2,
             food_2: servings1.normalized[nutrientEntry.api_key] < servings2.normalized[nutrientEntry.api_key] ? food1 : food2,
-            nutrient: nutrientEntry.value
+            nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
         })
         tts += ' '
 
         tts += i18n(`nutrition.compareInfo.nutritionalInfo${ servingSuffix }`, {
             amount_1: servings1.normalized[nutrientEntry.api_key],
             amount_2: servings2.normalized[nutrientEntry.api_key],
-            nutrient: nutrientEntry.value,
+            nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
             unit: i18n(`units.${ nutrientEntry.unit }`),
             food_1: food1,
             food_2: food2,

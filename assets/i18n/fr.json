@@ -39,5 +39,24 @@
         "mg": "milligrammes",
         "g": "grammes",
         "kcal": "calories"
+    },
+    "nutrients": {
+        "calcium": "calcium",
+        "calories": "calories",
+        "carbohydrate": "glucides",
+        "cholesterol": "cholestérol",
+        "fat": "acides gras",
+        "fiber": "fibres",
+        "iron": "fer",
+        "monounsaturated_fat": "acides gras mono-insaturés",
+        "polyunsaturated_fat": "acides gras poly-insaturés",
+        "potassium": "potassium",
+        "protein": "protéines",
+        "saturated_fat": "acides gras saturés",
+        "sodium": "sodium",
+        "sugar": "sucre",
+        "trans_fat": "acides gras trans",
+        "vitamin_a": "vitamine A",
+        "vitamin_c": "vitamine C"
     }
 }
