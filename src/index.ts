@@ -13,17 +13,16 @@ export default function ({
             try {
                 // Bootstrap config, locale, i18n…
                 await bootstrap(bootstrapOptions)
-
                 const dialog = hermes.dialog()
 
                 dialog.flows([
                     {
                         intent: 'snips-assistant:GetNutritionalInfo',
-                        action: handlers.getInfo
+                        action: (msg, flow) => handlers.getInfo(msg, flow, hermes)
                     },
                     {
                         intent: 'snips-assistant:CompareNutritionalInfo',
-                        action: handlers.compareInfo
+                        action: (msg, flow) => handlers.compareInfo(msg, flow, hermes)
                     }
                 ])
                 resolve(done)

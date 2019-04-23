@@ -9,8 +9,9 @@ import { utils, filterServings } from '../utils/nutrition'
 import {
     SLOT_CONFIDENCE_THRESHOLD
 } from '../constants'
+import { Hermes } from 'hermes-javascript'
 
-export const compareInfoHandler: Handler = async function (msg, flow, knownSlots: KnownSlots = { depth: 2 }) {
+export const compareInfoHandler: Handler = async function (msg, flow, hermes: Hermes, knownSlots: KnownSlots = { depth: 2 }) {
     const i18n = i18nFactory.get()
 
     logger.info('CompareInfo')
@@ -74,7 +75,7 @@ export const compareInfoHandler: Handler = async function (msg, flow, knownSlots
         if (Date.now() - now < 4000) {
             return speech
         } else {
-            tts.say(speech)
+            tts.say(hermes, speech)
         }
     } catch (error) {
         logger.error(error)

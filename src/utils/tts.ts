@@ -1,8 +1,7 @@
 import { Hermes, Dialog }  from 'hermes-javascript'
 
 export const tts = {
-    say: (text: string, siteId: string = 'default') => {
-        const hermes = new Hermes()
+    say: (hermes: Hermes, text: string, siteId: string = 'default') => {
         const dialog = hermes.dialog()
         
         dialog.publish('start_session', {
