@@ -43,6 +43,7 @@ This app only supports french 🇫🇷 and english 🇬🇧.
 
 Get nutritional information for the given food
 > *Hey Snips, how many calories are in a serving of spaghetti?*
+
 > *Hey Snips, how much vitamin A is in a carrot?*
 
 ### `CompareNutritionalInfo`
