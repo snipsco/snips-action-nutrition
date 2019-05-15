@@ -35,7 +35,7 @@ node action-nutrition.js
 
 ## Test & Demo cases
 
-This app only supports french 🇫🇷 and english 🇬🇧.
+This app only supports english 🇬🇧. French 🇫🇷 will probably be supported in the future.
 
 ### `GetNutritionalInfo`
 
