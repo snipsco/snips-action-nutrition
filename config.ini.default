@@ -1,5 +1,5 @@
 [global]
-locale=english
+locale=en
 
 [secret]
 api_key=

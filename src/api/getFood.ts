@@ -1,15 +1,14 @@
-import { httpFactory, configFactory } from '../factories'
-const crypto = require('crypto')
-import { logger } from '../utils'
+import { logger, config } from 'snips-toolkit'
 import { GetFoodPayload } from './types'
+import { BASE_URL } from '../constants'
+import { computeSignature, request } from './index'
+const crypto = require('crypto')
 
 export async function getFood(id: string): Promise<GetFoodPayload> {
-    const config = configFactory.get()
-
     const parameters = {
         format: 'json',
         method: 'food.get',
-        oauth_consumer_key: config.apiKey,
+        oauth_consumer_key: config.get().apiKey,
         oauth_nonce: crypto.randomBytes(10).toString('HEX'),
         oauth_signature_method: 'HMAC-SHA1',
         oauth_timestamp: Math.floor((new Date()).getTime() / 1000),
@@ -17,9 +16,9 @@ export async function getFood(id: string): Promise<GetFoodPayload> {
         food_id: id
     }
 
-    const signature = httpFactory.computeSignature('GET', httpFactory.BASE_URL, parameters)
+    const signature = computeSignature('GET', BASE_URL, parameters)
 
-    const results = await httpFactory.get()
+    const results = await request
         .query({
             ...parameters,
             oauth_signature: signature

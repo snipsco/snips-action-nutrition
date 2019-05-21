@@ -1,19 +1,13 @@
-import { slotType, NluSlot } from 'hermes-javascript'
+import { slotType, NluSlot } from 'hermes-javascript/types'
 import { searchFood, getFood } from '../api'
-import { i18nFactory } from '../factories'
-import { slot, logger, translation, message } from '../utils'
-import { Handler } from './index'
+import { logger, message, i18n, Handler } from 'snips-toolkit'
 import commonHandler, { KnownSlots } from './common'
-import { tts } from '../utils'
+import { tts, translation, slot } from '../utils'
 import { utils, filterServings } from '../utils/nutrition'
-import {
-    SLOT_CONFIDENCE_THRESHOLD
-} from '../constants'
+import { SLOT_CONFIDENCE_THRESHOLD } from '../constants'
 import { Hermes } from 'hermes-javascript'
 
 export const compareInfoHandler: Handler = async function (msg, flow, hermes: Hermes, knownSlots: KnownSlots = { depth: 2 }) {
-    const i18n = i18nFactory.get()
-
     logger.info('CompareInfo')
 
     const {
@@ -45,7 +39,7 @@ export const compareInfoHandler: Handler = async function (msg, flow, hermes: He
 
     const nutrientEntry = utils.getNutrientEntry(nutrient)
     if (!nutrientEntry) {
-        const speech = i18n('nutrition.dialog.unknownNutrient')
+        const speech = i18n.translate('nutrition.dialog.unknownNutrient')
         flow.end()
         logger.info(speech)
         return speech
