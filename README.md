@@ -30,7 +30,7 @@ npm run dev
 # 1) Lint, transpile and test.
 npm start
 # 2) Run the action.
-node action-nutrition.js
+npm run launch
 ```
 
 ## Test & Demo cases
@@ -55,7 +55,7 @@ Compare the nutritional info between the two given foods
 
 ## Debug
 
-In the `action-nutrition.js` file:
+In the `src/index.ts` file:
 
 ```js
 // Uncomment this line to print everything
@@ -72,5 +72,5 @@ npm run test
 
 **In test mode, i18n output and http calls are mocked.**
 
-- **http**: see `tests/httpMocks/index.ts`
-- **i18n**: see `src/factories/i18nFactory.ts`
+- **http**: are written in `tests/httpMocks/index.ts`
+- **i18n**: mocked by `snips-toolkit`, see the [documentation](https://github.com/snipsco/snips-javascript-toolkit#i18n).

@@ -26,5 +26,21 @@
   "dependencies": {
     "hermes-javascript": "^0.3.8",
     "snips-toolkit": "^0.1.3"
-  }
+  },
+  "sandbox": [
+    "assert",
+    "buffer",
+    "crypto",
+    "fs",
+    "http",
+    "https",
+    "net",
+    "os",
+    "path",
+    "stream",
+    "tty",
+    "url",
+    "util",
+    "zlib"
+  ]
 }

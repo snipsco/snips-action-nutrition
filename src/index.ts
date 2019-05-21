@@ -1,6 +1,5 @@
 import { Hermes, Done } from 'hermes-javascript'
 import { config, i18n, logger } from 'snips-toolkit'
-import { mappings } from './utils'
 import * as api from './api'
 import handlers from './handlers'
 
@@ -22,7 +21,6 @@ export default async function ({
 
         config.init()
         await i18n.init(config.get().locale)
-        mappings.init(config.get().locale)
         api.init()
 
         const dialog = hermes.dialog()
