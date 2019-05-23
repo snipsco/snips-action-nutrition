@@ -31,7 +31,7 @@ export const getInfoHandler: Handler = async function (msg, flow, hermes: Hermes
     }
 
     logger.info('\tfood_ingredient: ', foodIngredient)
-    
+
     if (!foodIngredient || slot.missing(foodIngredient) || !nutrient || slot.missing(nutrient)) {
         throw new Error('intentNotRecognized')
     }
@@ -45,7 +45,7 @@ export const getInfoHandler: Handler = async function (msg, flow, hermes: Hermes
     }
 
     const now = Date.now()
-    
+
     // Get the food data
     const foods = await searchFood(foodIngredient)
     const food = await getFood(foods.foods.food[0].food_id)
