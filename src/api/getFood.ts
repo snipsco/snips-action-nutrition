@@ -37,6 +37,7 @@ export async function getFood(id: string): Promise<GetFoodPayload> {
     if (results && !results.hasOwnProperty('error')) {
         //logger.debug(results)
     } else {
+        logger.error(results.error)
         throw new Error('APIResponse')
     }
 

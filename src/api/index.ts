@@ -4,13 +4,6 @@ const crypto = require('crypto')
 
 export let request = http(BASE_URL)
 
-export function init() {
-    request = request.query({
-        units: 'metric',
-        appid: config.get().apiKey
-    })
-}
-
 // https://platform.fatsecret.com/api/Default.aspx?screen=rapiauth
 export function computeSignature(httpMethod: string, requestURI: string, parameters): string {
     const queryString = Object.keys(parameters)

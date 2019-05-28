@@ -48,8 +48,10 @@ export interface Serving {
 
 export interface SearchFoodPayload {
     foods: Foods;
+    error: string;
 }
 
 export interface GetFoodPayload {
     food: Food;
+    error: string;
 }

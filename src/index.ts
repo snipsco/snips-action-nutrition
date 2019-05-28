@@ -1,6 +1,5 @@
 import { Hermes, Done } from 'hermes-javascript'
 import { config, i18n, logger } from 'snips-toolkit'
-import * as api from './api'
 import handlers from './handlers'
 
 // Enables deep printing of objects.
@@ -21,7 +20,6 @@ export default async function ({
 
         config.init()
         await i18n.init(config.get().locale)
-        api.init()
 
         const dialog = hermes.dialog()
 

@@ -39,6 +39,7 @@ export async function searchFood(keyword: string): Promise<SearchFoodPayload> {
             throw new Error('food')
         }
     } else {
+        logger.error(results.error)
         throw new Error('APIResponse')
     }
 
