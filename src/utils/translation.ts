@@ -34,7 +34,7 @@ export const translation = {
         const i18n = i18nFactory.get()
 
         let tts: string = ''
-        const context = nutrientEntry.unit == 'cal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
 
         if (servings.unit) {
             tts += i18n('nutrition.getInfo.nutritionalInfoServing', {
@@ -69,7 +69,7 @@ export const translation = {
 
         let tts: string = ''
         const servingSuffix = (servings1.unit && servings2.unit) ? 'Serving' : '100'
-        const context = nutrientEntry.unit == 'cal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
+        const context = nutrientEntry.unit == 'kcal' ? 'calories' : ((nutrientEntry.unit === '%') ? 'percentage' : null)
 
         tts += i18n(`nutrition.compareInfo.comparison${ servingSuffix }`, {
             food_1: servings1.normalized[nutrientEntry.api_key] > servings2.normalized[nutrientEntry.api_key] ? food1 : food2,
