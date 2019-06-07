@@ -11,7 +11,8 @@
     },
     "nutrition": {
         "dialog": {
-            "unknownNutrient": "Désolé, je ne connais pas ce nutriment."
+            "unknownNutrient": "Désolé, je ne connais pas ce nutriment.",
+            "unknownInfo": "Désolé, je ne connais pas les informations nutritionnelles de cet aliment."
         },
         "getInfo": {
             "nutritionalInfoServing": "En moyenne, une {{ food }} contient {{ amount }} {{ unit }} de {{ nutrient }}.",

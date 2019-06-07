@@ -64,7 +64,20 @@ export const compareInfoHandler: Handler = async function (msg, flow, hermes: He
 
     try {
         const [ food1ServingUnit, food1ServingNormalized ] = filterServings(servings1, foodIngredients[0])
+        if (!food1ServingUnit && !food1ServingNormalized) {
+            const speech = i18n('nutrition.dialog.unknownInfo')
+            flow.end()
+            logger.info(speech)
+            return speech
+        }
+
         const [ food2ServingUnit, food2ServingNormalized ] = filterServings(servings2, foodIngredients[0])
+        if (!food2ServingUnit && !food2ServingNormalized) {
+            const speech = i18n('nutrition.dialog.unknownInfo')
+            flow.end()
+            logger.info(speech)
+            return speech
+        }
 
         const speech = translation.compareInfoToSpeech(
             foodIngredients[0], { unit: food1ServingUnit, normalized: food1ServingNormalized },

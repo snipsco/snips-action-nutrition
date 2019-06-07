@@ -58,6 +58,12 @@ export const getInfoHandler: Handler = async function (msg, flow, hermes: Hermes
 
     try {
         const [ foodServingUnit, foodServingNormalized ] = filterServings(servings, foodIngredient)
+        if (!foodServingUnit && !foodServingNormalized) {
+            const speech = i18n('nutrition.dialog.unknownInfo')
+            flow.end()
+            logger.info(speech)
+            return speech
+        }
 
         const speech = translation.infoToSpeech(
             foodIngredient, { unit: foodServingUnit, normalized: foodServingNormalized }, nutrientEntry)

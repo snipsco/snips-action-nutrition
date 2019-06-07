@@ -44,21 +44,25 @@ export const translation = {
                 unit: i18n(`units.${ nutrientEntry.unit }`),
                 context
             })
-            tts += ' '
 
-            tts += i18n('nutrition.getInfo.additionalNutritionnalInfo100', {
-                amount: servings.normalized[nutrientEntry.api_key],
-                unit: i18n(`units.${ nutrientEntry.unit }`),
-                context
-            })
+            if (servings.normalized) {
+                tts += ' '
+                tts += i18n('nutrition.getInfo.additionalNutritionnalInfo100', {
+                    amount: servings.normalized[nutrientEntry.api_key],
+                    unit: i18n(`units.${ nutrientEntry.unit }`),
+                    context
+                })
+            }
         } else {
-            tts += i18n('nutrition.getInfo.nutritionalInfo100', {
-                amount: servings.normalized[nutrientEntry.api_key],
-                nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
-                food,
-                unit: i18n(`units.${ nutrientEntry.unit }`),
-                context
-            })
+            if (servings.normalized) {
+                tts += i18n('nutrition.getInfo.nutritionalInfo100', {
+                    amount: servings.normalized[nutrientEntry.api_key],
+                    nutrient: i18n(`nutrients.${ nutrientEntry.api_key }`),
+                    food,
+                    unit: i18n(`units.${ nutrientEntry.unit }`),
+                    context
+                })
+            }
         }
 
         return tts

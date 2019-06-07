@@ -19,7 +19,7 @@ export type KnownSlots = {
 
 export type ServingSamples = {
     unit: Serving | null,
-    normalized: Serving
+    normalized: Serving | null
 }
 
 export default async function (msg: IntentMessage, knownSlots: KnownSlots) {

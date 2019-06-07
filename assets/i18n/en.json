@@ -11,7 +11,8 @@
     },
     "nutrition": {
         "dialog": {
-            "unknownNutrient": "I'm sorry, I don't know this nutrient."
+            "unknownNutrient": "I'm sorry, I don't know this nutrient.",
+            "unknownInfo": "I'm sorry, I don't know the nutritional information of this food."
         },
         "getInfo": {
             "nutritionalInfoServing": "One {{ food }} typically has {{ amount }} {{ unit }} of {{ nutrient }}.",
