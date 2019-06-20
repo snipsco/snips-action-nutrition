@@ -87,3 +87,7 @@ typings/
 
 # macOS
 .DS_Store
+
+# Package manager
+pnpm-lock.yaml
+yarn.lock
