@@ -23,13 +23,20 @@
     "eslint-plugin-jest": "^22.7.0",
     "hermes-javascript": "^0.3.12",
     "typescript": "^3.5.2",
-    "snips-toolkit": "^1.0.1"
+    "snips-toolkit": "^1.0.1",
+    "husky": "^2.4.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run build"
+    }
   },
   "sandbox": [
     "crypto",
     "fs",
     "http",
     "https",
+    "os",
     "path",
     "stream",
     "tty",
