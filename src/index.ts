@@ -10,7 +10,7 @@ export default async function ({
     done
 }: {
     hermes: Hermes,
-    done: Done 
+    done: Done
 }) {
     try {
         const { name } = require('../package.json')
@@ -26,11 +26,11 @@ export default async function ({
         // Subscribe to the app intents
         dialog.flows([
             {
-                intent: 'snips-assistant:GetNutritionalInfo',
+                intent: `${ config.get().assistantPrefix }:GetNutritionalInfo`,
                 action: (msg, flow) => handlers.getInfo(msg, flow, hermes)
             },
             {
-                intent: 'snips-assistant:CompareNutritionalInfo',
+                intent: `${ config.get().assistantPrefix }:CompareNutritionalInfo`,
                 action: (msg, flow) => handlers.compareInfo(msg, flow, hermes)
             }
         ])
