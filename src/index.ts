@@ -21,6 +21,10 @@ export default async function ({
         config.init()
         await i18n.init(config.get().locale)
 
+        if (!config.get().apiKey) {
+            throw new Error('noAPIKey')
+        }
+
         const dialog = hermes.dialog()
 
         // Subscribe to the app intents
